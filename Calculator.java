@@ -1,4 +1,5 @@
 import java.util.Stack;
+// works for 1+2*3
 public class Calculator {
 
 	public static void main(String[] args) {
@@ -15,21 +16,22 @@ public class Calculator {
 		for (int i = 1; i < tokens.length; i++) {
 			stack.push(tokens[i]+"");// push operator
 			if (tokens[i] == '+' || tokens[i] == '-') {
-				stack.push(tokens[i++]+""); // push operand
+				stack.push(tokens[++i]+""); // push operand
 			} else {
 				String op = stack.pop();
 				int operand1 = Integer.valueOf(stack.pop());
-				int operand2 = Integer.valueOf(tokens[i]);
+				i++;
+				int operand2 = Integer.valueOf(tokens[i]+"");
 
 				String result = Integer.toString(evaluate(op, operand1, operand2));
 				stack.push (result);
 			}
 		}
 
-		int leftOver = stack.size();
 
 		int operand1 = Integer.valueOf(stack.pop());
-		for (int i = 0; i < leftOver; i++) {
+		int leftOver = stack.size();
+		for (int i = 0; i < leftOver; i += 2) {
 			String op = stack.pop();
 			int operand2 = Integer.valueOf(stack.pop());
 			operand1 = evaluate(op, operand1, operand2);
