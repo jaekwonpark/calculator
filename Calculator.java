@@ -10,15 +10,15 @@ public class Calculator {
 
 	private static int calculate(String in) {
 		char[] tokens = in.toCharArray();
-		Stack stack = new Stack();
-		stack.push(tokens[0]); // add the first number
+		Stack<String> stack = new Stack<String>();
+		stack.push(tokens[0]+""); // add the first number
 		for (int i = 1; i < tokens.length; i++) {
-			stack.push(tokens[i]);// push operator
+			stack.push(tokens[i]+"");// push operator
 			if (tokens[i] == '+' || tokens[i] == '-') {
-				stack.push(tokens[i++]); // push operand
+				stack.push(tokens[i++]+""); // push operand
 			} else {
-				String op = (String)stack.pop();
-				int operand1 = Integer.valueOf((String)stack.pop());
+				String op = stack.pop();
+				int operand1 = Integer.valueOf(stack.pop());
 				int operand2 = Integer.valueOf(tokens[i]);
 
 				String result = Integer.toString(evaluate(op, operand1, operand2));
@@ -28,10 +28,10 @@ public class Calculator {
 
 		int leftOver = stack.size();
 
-		int operand1 = Integer.valueOf((String)stack.pop());
+		int operand1 = Integer.valueOf(stack.pop());
 		for (int i = 0; i < leftOver; i++) {
-			String op = (String)stack.pop();
-			int operand2 = Integer.valueOf((String)stack.pop());
+			String op = stack.pop();
+			int operand2 = Integer.valueOf(stack.pop());
 			operand1 = evaluate(op, operand1, operand2);
 		}
 
